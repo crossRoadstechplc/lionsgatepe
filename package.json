@@ -1,0 +1,14 @@
+{
+  "name": "lionsgate-pe",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "start": "node scripts/dev-server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
