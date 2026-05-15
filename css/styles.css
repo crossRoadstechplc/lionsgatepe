@@ -76,31 +76,104 @@ a {
 
 /* ── Header ── */
 
-.site-header {
+.site-top {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 200;
   padding: 24px 0;
   padding-top: max(24px, env(safe-area-inset-top, 0px));
-  transition: padding 0.4s var(--ease), background 0.4s var(--ease), backdrop-filter 0.4s;
+  transition: padding 0.4s var(--ease), background 0.4s var(--ease);
 }
 
-.site-header.scrolled {
+.site-top.scrolled {
   padding: 14px 0;
-  background: rgba(15, 26, 46, 0.92);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 26, 46, 0.98);
   border-bottom: 1px solid var(--white-faint);
 }
 
-.header-inner {
+.header-shell {
+  display: contents;
+}
+
+.header-bar {
+  position: relative;
+  z-index: 202;
   width: var(--container);
   margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+}
+
+@media (min-width: 800px) {
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .site-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding-left: max(30px, calc((100% - 1120px) / 2));
+    padding-right: max(30px, calc((100% - 1120px) / 2));
+  }
+
+  .header-bar {
+    width: auto;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .nav {
+    position: static;
+    display: block;
+    flex: 1;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    overflow: visible;
+    padding: 0;
+    background: none;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 36px;
+    width: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .nav-list li {
+    width: auto;
+    border-bottom: none;
+  }
+
+  .nav-list li:last-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .nav-list a {
+    display: inline-block;
+    padding: 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-align: left;
+  }
+
+  .nav-cta {
+    margin: 0;
+    padding: 10px 20px !important;
+    width: auto;
+  }
 }
 
 .logo img {
@@ -786,31 +859,41 @@ a {
     --header-h: 72px;
   }
 
-  .site-header {
+  .site-top {
     padding: 16px 0;
   }
 
-  .site-header.scrolled {
+  .site-top.scrolled {
     padding: 12px 0;
+  }
+
+  body.menu-open .site-top {
+    z-index: 300;
   }
 
   .menu-toggle {
     display: flex;
-    position: relative;
-    z-index: 102;
   }
 
   .nav {
     position: fixed;
-    inset: 0;
-    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    z-index: 150;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: calc(var(--header-h) + 24px) 24px 24px;
-    background: rgba(15, 26, 46, 0.98);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: calc(var(--header-h) + 20px) 28px 32px;
+    padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
+    background: var(--navy);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -825,10 +908,12 @@ a {
 
   .nav-list {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 0;
     width: 100%;
-    max-width: 320px;
+    max-width: 360px;
+    margin: 0 auto;
+    list-style: none;
   }
 
   .nav-list li {
@@ -838,21 +923,26 @@ a {
 
   .nav-list li:last-child {
     border-bottom: none;
-    margin-top: 8px;
+    margin-top: 20px;
+    padding-top: 4px;
   }
 
   .nav-list a {
     display: block;
-    padding: 18px 8px;
+    padding: 20px 12px;
     font-size: 13px;
     letter-spacing: 3px;
     text-align: center;
   }
 
   .nav-cta {
-    margin-top: 8px;
-    padding: 16px 24px !important;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 18px 24px !important;
     text-align: center;
+    box-sizing: border-box;
+    border-color: var(--gold);
   }
 
   .logo img {
