@@ -38,8 +38,10 @@ body {
   overflow-x: hidden;
 }
 
+html.menu-open,
 body.menu-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 img {

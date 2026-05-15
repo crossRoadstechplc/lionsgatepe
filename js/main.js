@@ -23,7 +23,11 @@
   onScroll();
 
   /* Mobile menu */
-  let scrollLockY = 0;
+  const mobileNavQuery = window.matchMedia('(max-width: 799px)');
+
+  function isMobileNav() {
+    return mobileNavQuery.matches;
+  }
 
   function closeMenu() {
     if (!nav || !menuToggle) return;
@@ -31,32 +35,25 @@
     header?.classList.remove('nav-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Open menu');
+    document.documentElement.classList.remove('menu-open');
     document.body.classList.remove('menu-open');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, scrollLockY);
   }
 
   function openMenu() {
     if (!nav || !menuToggle) return;
-    scrollLockY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollLockY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-    document.body.classList.add('menu-open');
     nav.classList.add('open');
     header?.classList.add('nav-open');
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Close menu');
+    if (isMobileNav()) {
+      document.documentElement.classList.add('menu-open');
+      document.body.classList.add('menu-open');
+    }
   }
 
   if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
+    menuToggle.addEventListener('click', (e) => {
+      e.preventDefault();
       const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
       if (isOpen) closeMenu();
       else openMenu();
