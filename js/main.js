@@ -55,6 +55,10 @@
     if (e.key === 'Escape') closeMenu();
   });
 
+  window.matchMedia('(min-width: 800px)').addEventListener('change', (e) => {
+    if (e.matches) closeMenu();
+  });
+
   /* Active nav link on scroll */
   const sections = document.querySelectorAll('section[id]');
 
